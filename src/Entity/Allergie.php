@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 use App\Repository\AllergieRepository;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 #[ORM\Entity(repositoryClass: AllergieRepository::class)]
 
 
@@ -22,19 +24,24 @@ class Allergie
    
      
      #[ORM\Column(length:255)]
-     
+     #[Assert\NotBlank(message: "Le nom ne peut pas être vide")]
+     #[Assert\Length(
+         min: 6,
+         minMessage: "Le nom doit contenir au moins {{ limit }} caractères",
+         max: 255,
+         maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères"
+     )]
     private ? string $nom ;
 
    
     #[ORM\Column(length:255)]
-    private ? string $description;
+    #[Assert\NotBlank(message: "La description ne peut pas être vide")]
+    #[Assert\Length(min: 10,  minMessage: "Le nom doit contenir au moins {{ limit }} caractères",
+        max: 255, maxMessage: "La description ne peut pas dépasser {{ limit }} caractères")]
+       private ? string $description;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="allergie")
-     */
-    private $user = array();
+       #[ORM\ManyToMany(targetEntity: "User", mappedBy: "allergies")]
+private ?Collection $user;
 
     /**
      * Constructor
@@ -99,5 +106,8 @@ class Allergie
 
         return $this;
     }
-
+    public function __toString(): string
+    {
+        return $this->nom ?? ''; // You can change this to whatever property you want to use for the string representation
+    }
 }

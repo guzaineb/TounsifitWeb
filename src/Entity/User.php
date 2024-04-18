@@ -80,6 +80,9 @@ class User
      *   }
      * )
      */
+    
+     #[ORM\ManyToMany(targetEntity: "Allergie", inversedBy: "users")]
+     #[ORM\JoinTable(name: "user_allergie")]
     private $allergie = array();
 
     /**

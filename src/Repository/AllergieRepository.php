@@ -45,4 +45,13 @@ class AllergieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function orderByNom()
+{
+    return $this->createQueryBuilder('s')
+        ->orderBy('s.nom', 'ASC')
+        ->getQuery()->getResult();
+}
+
+
 }

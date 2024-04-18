@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use App\Entity\User; 
 
 
 
@@ -50,12 +51,15 @@ class AllergieController extends AbstractController
       /**
      * @Route("/Delete/{id}", name="Allergie_delete")
      */
-    public function DeleteAllergie($id, AllergieRepository $rep, ManagerRegistry $doctrine): Response
+    public function DeleteAllergie($id, AllergieRepository $allergieRepository, ManagerRegistry $doctrine): Response
     {
     $em= $doctrine->getManager();
-    $allergie= $rep->find($id);
+    $allergie= $allergieRepository->find($id);
+
     $em->remove($allergie);
+
     $em->flush();
+
     return $this->redirectToRoute('allergie_show');
 }
 
@@ -66,6 +70,25 @@ class AllergieController extends AbstractController
     {
         $Allergies = $allergieRepository->findAll();
         return $this->render('allergie/show.html.twig',['allergies'=>$Allergies]);
+
+    }
+      /**
+     * @Route("/affiche", name="allergie_affiche")
+     */
+    public function affiche(AllergieRepository $allergieRepository):Response
+    {
+        $Allergies = $allergieRepository->findAll();
+        return $this->render('allergie/feauter.html.twig',['allergies'=>$Allergies]);
+
+        
+    }
+     /**
+     * @Route("/detais/{id}", name="allergie_detais")
+     */
+    public function detais(AllergieRepository $allergieRepository,$id):Response
+    {
+        $Allergies = $allergieRepository->findBy($id);
+        return $this->render('allergie/detais.html.twig',['allergies'=>$Allergies]);
 
     }
        /**
@@ -86,5 +109,21 @@ class AllergieController extends AbstractController
            'formA'=>$form->createView(),
         ]);
        }
+     
+    /**
+     * @Route("/select", name="select_allergie")
+     */
+    public function select(Request $request, AllergieRepository $allergieRepository): Response
+    {
+        $id = $request->request->get('id');
+       // $id_usr = $this->getUser()->getId(); // Vous devrez peut-être adapter cela selon la façon dont vous gérez l'authentification
+
+        $allergieRepository->addUserAllergieAssociation( $id);
+
+        // Vous pouvez retourner une réponse appropriée si nécessaire
+        return $this->redirectToRoute('back/base.html.twig'); // Redirigez vers une autre page après la sélection, par exemple la page d'accueil
+    }
+
+
 
 }

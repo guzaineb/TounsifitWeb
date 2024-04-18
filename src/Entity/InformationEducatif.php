@@ -2,41 +2,48 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\InformationEducatifRepository;
 
-#[ORM\Entity(repositoryClass: InformationEducatifRepository::class)]
+#[ORM\Entity(repositoryClass:InformationEducatifRepository::class)]
 class InformationEducatif
-{
-  #[ORM\Id]
-  #[ORM\GeneratedValue]
-  #[ORM\Column]
+{  
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idinformation = null;
 
-    private ?int $idinformation=null;
+    #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank(message: "Le titre ne peut pas être vide")]
+    private ?string $titre = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $titre=null;
+    #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank(message: "Le symbole ne peut pas être vide")]
+
+    private ?string $symptome = null;
+    #[ORM\Column(type: "text")]
+    #[Assert\NotBlank(message: "Les causes  ne peut pas être vide")]
 
    
-    #[ORM\Column(length: 255)]
-    private ?string  $contenu=null;
+    private ?string $causes = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="auteur", type="string", length=255, nullable=false)
-     */
-    private $auteur;
 
-    /**
-     * @var \App\Entity\Allergie
-     *
-     * @ORM\ManyToOne(targetEntity="Allergie")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_allergie", referencedColumnName="id")
-     * })
-     */
-    private $idAllergie;
+    #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank(message: "Le traitement ne peut pas être vide")]
+
+    private ?string $traitement = null;
+    #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank(message: "L'image ne peut pas être vide")]
+
+    private ?string $image = null;
+
+    #[ORM\ManyToOne(targetEntity: Allergie::class)]
+    #[ORM\JoinColumn(name: 'id_allergie')]
+    #[Assert\NotBlank(message: "id_allergie ne peut pas être vide")]
+
+ 
+    private ?Allergie $idAllergie = null;
 
     public function getIdinformation(): ?int
     {
@@ -55,26 +62,26 @@ class InformationEducatif
         return $this;
     }
 
-    public function getContenu(): ?string
+    public function getSymptome(): ?string
     {
-        return $this->contenu;
+        return $this->symptome;
     }
 
-    public function setContenu(string $contenu): static
+    public function setSymptome(string $symptome): static
     {
-        $this->contenu = $contenu;
+        $this->symptome = $symptome;
 
         return $this;
     }
 
-    public function getAuteur(): ?string
+    public function getCauses(): ?string
     {
-        return $this->auteur;
+        return $this->causes;
     }
 
-    public function setAuteur(string $auteur): static
+    public function setCauses(string $causes): static
     {
-        $this->auteur = $auteur;
+        $this->causes = $causes;
 
         return $this;
     }
@@ -90,6 +97,31 @@ class InformationEducatif
 
         return $this;
     }
+
+    public function getTraitement(): ?string
+    {
+        return $this->traitement;
+    }
+
+    public function setTraitement(string $traitement): static
+    {
+        $this->traitement = $traitement;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 
 
 }

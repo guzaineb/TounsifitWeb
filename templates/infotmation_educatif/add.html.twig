@@ -1,0 +1,75 @@
+{% extends 'back/base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-header bg-primary text-white">
+                    <img class="rounded-circle" src="/img/logo1.png" alt="" style="width: 40px; height: 40px;">
+                    TounsiFit - Ajouter un nouvel Information Éducatif
+                </div>
+                <div class="card-body">
+                    {{ form_start(formB, {'attr': {'class': 'bg-light rounded p-4'}}) }}
+
+                    <div class="mb-3">
+                        {{ form_label(formB.titre, 'Titre', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(formB.titre, {'attr': {'placeholder': 'Titre', 'class': 'form-control'}}) }}
+                        {% if form_errors(formB.titre) %}
+                            <div class="text-danger">{{ form_errors(formB.titre) }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(formB.symptome, 'symptome', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(formB.symptome, {'attr': {'placeholder': 'symptome', 'class': 'form-control', 'style': 'height: 150px;'}}) }}
+                        {% if form_errors(formB.symptome) %}
+                            <div class="text-danger">{{ form_errors(formB.symptome) }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(formB.causes, 'Causes', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(formB.causes, {'attr': {'placeholder': 'Causes', 'class': 'form-control'}}) }}
+                        {% if form_errors(formB.causes) %}
+                            <div class="text-danger">{{ form_errors(formB.causes) }}</div>
+                        {% endif %}
+                    </div>
+   <div class="mb-3">
+                        {{ form_label(formB.traitement, 'traitement', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(formB.traitement, {'attr': {'placeholder': 'traitement', 'class': 'form-control'}}) }}
+                        {% if form_errors(formB.traitement) %}
+                            <div class="text-danger">{{ form_errors(formB.traitement) }}</div>
+                        {% endif %}
+                    </div>
+
+                       <div class="mb-3">
+                        {{ form_label(formB.image , 'image ', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(formB.image , {'attr': { 'class': 'form-control'}}) }}
+                        {% if form_errors(formB.image ) %}
+                            <div class="text-danger">{{ form_errors(formB.image ) }}</div>
+                        {% endif %}
+                    </div>
+
+                    
+                    <div class="mb-3">
+                        {{ form_label(formB.idAllergie, 'Allergie', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(formB.idAllergie, {'attr': {'class': 'form-control'}}) }}
+                        {% if form_errors(formB.idAllergie) %}
+                            <div class="text-danger">{{ form_errors(formB.idAllergie) }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary rounded-pill">Ajouter</button>
+                        <a href="{{ path('information_show') }}" class="btn btn-secondary rounded-pill">Retourner</a>
+                        
+                    </div>
+
+                    {{ form_end(formB) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

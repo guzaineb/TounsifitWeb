@@ -45,4 +45,24 @@ class InformationEducatifRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function orderByTitre()
+{
+    return $this->createQueryBuilder('i')
+        ->orderBy('i.titre', 'ASC')
+        ->getQuery()->getResult();
+}
+public function orderByAuteur()
+{
+    return $this->createQueryBuilder('i')
+        ->orderBy('i.auteur', 'ASC')
+        ->getQuery()->getResult();
+}
+public function orderByContenu()
+{
+    return $this->createQueryBuilder('i')
+        ->orderBy('i.Contenu', 'ASC')
+        ->getQuery()->getResult();
+}
+
 }
