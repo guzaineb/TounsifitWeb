@@ -120,7 +120,7 @@ class InfotmationEducatifController extends AbstractController
     
         if ($form->isSubmitted() && $form->isValid()) {
             // Récupérer le fichier de l'image
-            $imageFile = $form->get('imag')->getData();
+            $imageFile = $form->get('image')->getData();
     
             // Vérifier si une nouvelle image a été téléchargée
             if ($imageFile) {

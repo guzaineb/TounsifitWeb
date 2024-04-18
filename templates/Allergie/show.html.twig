@@ -36,50 +36,6 @@
 		</div>
 	</nav>
 </div>
-<!-- Sidebar End -->
-// JavaScript pour gérer les notifications et la fonction de recherche
-    document.addEventListener('DOMContentLoaded', function () {
-        var dropdowns = document.querySelectorAll('.nav-item.dropdown');
-
-        dropdowns.forEach(function (dropdown) {
-            dropdown.addEventListener('click', function (event) {
-                event.stopPropagation();
-                var menu = dropdown.querySelector('.dropdown-menu');
-                if (menu.classList.contains('show')) {
-                    menu.classList.remove('show');
-                } else {
-                    menu.classList.add('show');
-                }
-            });
-        });
-
-        // Fermer les menus déroulants de notification lors du clic en dehors
-        window.addEventListener('click', function (event) {
-            dropdowns.forEach(function (dropdown) {
-                var menu = dropdown.querySelector('.dropdown-menu');
-                if (menu.classList.contains('show') && !dropdown.contains(event.target)) {
-                    menu.classList.remove('show');
-                }
-            });
-        });
-
-        // Fonction de recherche
-        const searchInput = document.getElementById('searchInput');
-        const tableRows = document.querySelectorAll('.table tbody tr');
-
-        searchInput.addEventListener('input', function () {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            tableRows.forEach(function (row) {
-                const rowData = row.textContent.toLowerCase();
-                if (rowData.includes(searchTerm)) {
-                    row.style.display = 'table-row';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-    });
-</script>
 
 
 <!-- Content Start -->

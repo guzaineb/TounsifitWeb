@@ -82,15 +82,8 @@ class AllergieController extends AbstractController
 
         
     }
-     /**
-     * @Route("/detais/{id}", name="allergie_detais")
-     */
-    public function detais(AllergieRepository $allergieRepository,$id):Response
-    {
-        $Allergies = $allergieRepository->findBy($id);
-        return $this->render('allergie/detais.html.twig',['allergies'=>$Allergies]);
-
-    }
+    
+    
        /**
      * @Route("/update/{id}", name="allergie_update")
      */  

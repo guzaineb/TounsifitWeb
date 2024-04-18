@@ -40,6 +40,8 @@ class InformationType extends AbstractType
                         'image/jpeg',
                         'image/png',
                         'image/gif',
+                        'image/jpg'
+                        
                     ],
                     'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG, PNG, GIF)',
                 ])

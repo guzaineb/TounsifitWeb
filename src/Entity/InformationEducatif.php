@@ -16,10 +16,22 @@ class InformationEducatif
 
     #[ORM\Column(type: "string", length: 255)]
     #[Assert\NotBlank(message: "Le titre ne peut pas être vide")]
+    #[Assert\Length(
+        min: 6,
+        minMessage: "Le titre doit contenir au moins {{ limit }} caractères",
+        max: 255,
+        maxMessage: "Le titre ne peut pas dépasser {{ limit }} caractères"
+    )]
     private ?string $titre = null;
 
     #[ORM\Column(type: "string", length: 255)]
-    #[Assert\NotBlank(message: "Le symbole ne peut pas être vide")]
+    #[Assert\NotBlank(message: "Le symptome ne peut pas être vide")]
+    #[Assert\Length(
+        min: 4,
+        minMessage: "Le symptome doit contenir au moins {{ limit }} caractères",
+        max: 255,
+        maxMessage: "Le symptome ne peut pas dépasser {{ limit }} caractères"
+    )]
 
     private ?string $symptome = null;
     #[ORM\Column(type: "text")]
@@ -34,13 +46,13 @@ class InformationEducatif
 
     private ?string $traitement = null;
     #[ORM\Column(type: "string", length: 255)]
-    #[Assert\NotBlank(message: "L'image ne peut pas être vide")]
+   
 
     private ?string $image = null;
 
     #[ORM\ManyToOne(targetEntity: Allergie::class)]
     #[ORM\JoinColumn(name: 'id_allergie')]
-    #[Assert\NotBlank(message: "id_allergie ne peut pas être vide")]
+    #[Assert\NotBlank(message: "séléctionner une allergie ")]
 
  
     private ?Allergie $idAllergie = null;

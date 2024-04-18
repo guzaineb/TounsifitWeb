@@ -43,13 +43,11 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<div class="navbar-nav ms-auto p-4 p-lg-0">
-					<a href="index.html" class="nav-item nav-link active">Home</a>
-					<a href="about.html" class="nav-item nav-link">About Us</a>
 					<a href=" " class="nav-item nav-link">Produits</a>
 
 
 					<a href="{{path('allergie_affiche')}}" class="nav-item nav-link">Allergie</a>
-					<a href="{{path('information_show')}}" class="nav-item nav-link">Information éducatif</a>
+					<a href="{{path('information_list')}}" class="nav-item nav-link">Information éducatif</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
 						<div class="dropdown-menu m-0">
@@ -90,10 +88,9 @@
 				{% for allergie in allergies %}
 					<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{ loop.index }}s">
 						<div class="bg-white text-center h-100 p-4 p-xl-5">
-							<h4 class="mb-3">{{ allergie.nom }}</h4>
+							<h4 class="mb-3 ;fw-bold text-primary m-0">{{ allergie.nom }}</h4>
 							<p class="mb-4">{{ allergie.description }}</p>
-						<a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="{{ path('allergie_detais', {'id': allergie.id}) }}">Details</a>
-</div>
+						</div>
 					</div>
 				{% endfor %}
 			</div>
