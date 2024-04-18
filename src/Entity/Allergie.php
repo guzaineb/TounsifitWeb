@@ -27,9 +27,9 @@ class Allergie
      #[Assert\NotBlank(message: "Le nom ne peut pas être vide")]
      #[Assert\Length(
          min: 6,
-         minMessage: "Le nom doit contenir au moins {{ limit }} caractères",
+         minMessage: "Le nom doit contenir au moins {{ min }} caractères",
          max: 255,
-         maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères"
+         maxMessage: "Le nom ne peut pas dépasser {{ max }} caractères"
      )]
     private ? string $nom ;
 

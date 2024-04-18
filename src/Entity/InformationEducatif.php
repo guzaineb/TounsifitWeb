@@ -18,9 +18,9 @@ class InformationEducatif
     #[Assert\NotBlank(message: "Le titre ne peut pas être vide")]
     #[Assert\Length(
         min: 6,
-        minMessage: "Le titre doit contenir au moins {{ limit }} caractères",
+        minMessage: "Le titre doit contenir au moins {{ min }} caractères",
         max: 255,
-        maxMessage: "Le titre ne peut pas dépasser {{ limit }} caractères"
+        maxMessage: "Le titre ne peut pas dépasser {{ max }} caractères"
     )]
     private ?string $titre = null;
 
@@ -28,9 +28,9 @@ class InformationEducatif
     #[Assert\NotBlank(message: "Le symptome ne peut pas être vide")]
     #[Assert\Length(
         min: 4,
-        minMessage: "Le symptome doit contenir au moins {{ limit }} caractères",
+        minMessage: "Le symptome doit contenir au moins {{ min }} caractères",
         max: 255,
-        maxMessage: "Le symptome ne peut pas dépasser {{ limit }} caractères"
+        maxMessage: "Le symptome ne peut pas dépasser {{ lmax }} caractères"
     )]
 
     private ?string $symptome = null;
