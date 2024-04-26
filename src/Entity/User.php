@@ -2,21 +2,25 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-use App\Repository\UserRepository;
-
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-
+/**
+ * User
+ *
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
+ * @ORM\Entity
+ */
 class User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
     /**
      * @var string|null
@@ -56,39 +60,16 @@ class User
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="isconnected", type="boolean", nullable=true)
-     */
-    private $isconnected;
-
-    /**
-     * @var bool|null
-     *
      * @ORM\Column(name="isbanned", type="boolean", nullable=true)
      */
     private $isbanned = '0';
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var bool|null
      *
-     * @ORM\ManyToMany(targetEntity="Allergie", inversedBy="user")
-     * @ORM\JoinTable(name="user_allergie",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="allergie_id", referencedColumnName="id")
-     *   }
-     * )
+     * @ORM\Column(name="isconnected", type="boolean", nullable=true)
      */
-    private $allergie = array();
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->allergie = new ArrayCollection();
-    }
+    private $isconnected = '0';
 
     public function getId(): ?int
     {
@@ -155,18 +136,6 @@ class User
         return $this;
     }
 
-    public function isIsconnected(): ?bool
-    {
-        return $this->isconnected;
-    }
-
-    public function setIsconnected(?bool $isconnected): static
-    {
-        $this->isconnected = $isconnected;
-
-        return $this;
-    }
-
     public function isIsbanned(): ?bool
     {
         return $this->isbanned;
@@ -179,28 +148,17 @@ class User
         return $this;
     }
 
-    /**
-     * @return Collection<int, Allergie>
-     */
-    public function getAllergie(): Collection
+    public function isIsconnected(): ?bool
     {
-        return $this->allergie;
+        return $this->isconnected;
     }
 
-    public function addAllergie(Allergie $allergie): static
+    public function setIsconnected(?bool $isconnected): static
     {
-        if (!$this->allergie->contains($allergie)) {
-            $this->allergie->add($allergie);
-        }
+        $this->isconnected = $isconnected;
 
         return $this;
     }
 
-    public function removeAllergie(Allergie $allergie): static
-    {
-        $this->allergie->removeElement($allergie);
-
-        return $this;
-    }
 
 }

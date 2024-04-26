@@ -4,16 +4,22 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use App\Repository\PanierRepository;
-
-#[ORM\Entity(repositoryClass: PanierRepository::class)]
-
+/**
+ * Panier
+ *
+ * @ORM\Table(name="panier")
+ * @ORM\Entity
+ */
 class Panier
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $idPanier;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_panier", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idPanier;
 
     /**
      * @var int
@@ -35,13 +41,6 @@ class Panier
      * @ORM\Column(name="prix_produit", type="integer", nullable=false)
      */
     private $prixProduit;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
-     */
-    private $idUser;
 
     public function getIdPanier(): ?int
     {
@@ -80,18 +79,6 @@ class Panier
     public function setPrixProduit(int $prixProduit): static
     {
         $this->prixProduit = $prixProduit;
-
-        return $this;
-    }
-
-    public function getIdUser(): ?int
-    {
-        return $this->idUser;
-    }
-
-    public function setIdUser(int $idUser): static
-    {
-        $this->idUser = $idUser;
 
         return $this;
     }

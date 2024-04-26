@@ -3,23 +3,37 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\InformationEducatifRepository;
 
-#[ORM\Entity(repositoryClass: InformationEducatifRepository::class)]
+/**
+ * InformationEducatif
+ *
+ * @ORM\Table(name="information_educatif", indexes={@ORM\Index(name="id_allergie", columns={"id_allergie"})})
+ * @ORM\Entity
+ */
 class InformationEducatif
 {
-  #[ORM\Id]
-  #[ORM\GeneratedValue]
-  #[ORM\Column]
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idInformation", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idinformation;
 
-    private ?int $idinformation=null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=255, nullable=false)
+     */
+    private $titre;
 
-    #[ORM\Column(length: 255)]
-    private ?string $titre=null;
-
-   
-    #[ORM\Column(length: 255)]
-    private ?string  $contenu=null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contenu", type="string", length=255, nullable=false)
+     */
+    private $contenu;
 
     /**
      * @var string
@@ -29,11 +43,11 @@ class InformationEducatif
     private $auteur;
 
     /**
-     * @var \App\Entity\Allergie
+     * @var \Allergie
      *
      * @ORM\ManyToOne(targetEntity="Allergie")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_allergie", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_allergie", referencedColumnName="id_al")
      * })
      */
     private $idAllergie;

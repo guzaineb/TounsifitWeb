@@ -1,0 +1,40 @@
+{% extends 'back/base.html.twig' %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ asset('/public/css/style.css') }}">
+
+<div id="main">
+    <!-- Post -->
+    <section class="post">
+        <header class="major">
+            <h1>Ajouter nouveau Restaurant</h1>
+        </header>
+
+        <!-- Messages Flash -->
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="col-md-12">
+            {{ form_start(formR) }}
+            <fieldset>
+                {{ form_row(formR.nom, {'attr': {'placeholder': 'Nom du restaurant'}}) }}
+                {{ form_row(formR.adresse, {'attr': {'placeholder': 'Adresse'}}) }}
+                {{ form_row(formR.type, {'attr': {'placeholder': 'Type'}}) }}
+                {{ form_row(formR.img, {'attr': {'placeholder': 'Image'}}) }}
+            </fieldset>
+        </div>
+
+        <div class="col-md-12">
+            <fieldset>
+                <button type="submit" class="btn btn-success">Ajouter !</button>
+            </fieldset>
+        </div>
+
+        {{ form_end(formR) }}
+    </section>
+</div>
+{% endblock %}
+

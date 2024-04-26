@@ -1,0 +1,44 @@
+{% extends 'back/base.html.twig' %}
+{% block body %}
+	<div
+		id="main">
+		<!-- Post -->
+		<section class="post">
+			<header class="major">
+				<h1>Modifier information
+				</h1>
+			</header>
+
+
+			<div class="col-md-12">
+				{{form_start(formB)}}
+				<fieldset>
+					{{ form_row(formB.titre) }}
+				</fieldset>
+			</div>
+
+			<div class="col-md-12">
+				<fieldset>
+					{{ form_row(formB.contenu) }}
+				</fieldset>
+			</div>
+			<div class="col-md-12">
+				<fieldset>
+					{{ form_row(formB.auteur) }}
+				</fieldset>
+			</div>
+			<div class="col-md-12">
+				<fieldset>
+					<button type="submit" class="btn btn-success">
+						Modifier  !
+					</button>
+				</fieldset>
+			</div>
+
+			{{ form_end(formB) }}
+
+		</div>
+
+
+	</section>
+</div>{% endblock %}

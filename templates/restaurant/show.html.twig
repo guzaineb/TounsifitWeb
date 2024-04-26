@@ -1,0 +1,88 @@
+{% extends 'back/base.html.twig' %}
+{% block body %}
+<link rel="stylesheet" href="{{ asset('/public/css/style.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<div id="main">
+    <!-- Messages Flash -->
+    {% for type, messages in app.session.flashBag.all() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    
+    <!-- Affichage des restaurants -->
+    <h1>Tous les restaurants</h1>
+    <div class="col-sm-12 col-xl-12">
+        <div class="bg-light rounded h-100 p-4">
+            <table class="table table-bordered table-responsive-lg">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Adresse</th>
+                        <th>Type</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for restaurant in restaurants %}
+                        <tr>
+                            <td>{{ restaurant.id }}</td>
+                            <td>{{ restaurant.nom }}</td>
+                            <td>{{ restaurant.adresse }}</td>
+                            <td>{{ restaurant.type }}</td>
+                            <td><img src="{{ asset('restaurant/' ~ restaurant.img) }}" alt="{{ restaurant.nom }}" style="max-width: 100px;"></td>
+                            <td>
+                                <a href="{{ path('restaurant_update', {'id': restaurant.id}) }}" class="btn btn-square btn-warning m-2">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                |
+                                <a href="{{ path('restaurant_delete', {'id': restaurant.id}) }}" class="btn btn-sm btn-sm-square btn-danger m-2">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Boutons Ajouter et Retour -->
+    <div class="d-flex justify-content-between mt-3">
+        <a href="{{ path('restaurant_add') }}" class="btn btn-primary">Ajouter un restaurant</a>
+        <a href="{{ path('app_back') }}" class="btn btn-secondary">Précedent</a>
+    </div>
+
+    <!-- Pied de page -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light rounded-top p-4">
+            <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-start">
+                    &copy;
+                    <a href="#">TounsiFit</a>, All Rights Reserved.
+                </div>
+                <div class="col-12 col-sm-6 text-center text-sm-end">
+                    Designed By
+                    <a href="https://htmlcodex.com">HTML Codex</a>
+                    <br>
+                    Distributed By
+                    <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Ajouter un délai pour cacher les messages flash
+    setTimeout(function() {
+        $('.alert').hide('slow');
+    }, 1000); // 5000 millisecondes (5 secondes)
+</script>
+
+{% endblock %}
