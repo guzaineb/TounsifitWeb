@@ -132,4 +132,15 @@ class RestaurantController extends AbstractController
         'restaurant' => $restaurant,
      ]);
    }
+   
+
+    /**
+    * @Route("/front", name="restaurant_front")
+    */
+    public function showResto(RestaurantRepository $restaurantRepository): Response
+    {
+     $restaurants = $restaurantRepository->findAll();
+     return $this->render('Restaurant/index-front.html.twig', ['restaurants' => $restaurants]);
+    }
+
 }

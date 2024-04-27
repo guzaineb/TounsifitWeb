@@ -1,0 +1,44 @@
+    {% extends 'front/base.html.twig' %}
+    
+{% block title %}Liste des Restaurants{% endblock %}
+
+    {% block body %}
+
+    <section id="menu" class="menu">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Our Menu</h2>
+          <p>Check Our <span>Yummy Menu</span></p>
+        </div>
+        <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
+
+        
+          <div>
+           {% for restaurant in restaurants %}
+
+            <div class="row gy-5">
+
+              <div class="col-lg-4 menu-item">
+               <img src="{{ asset('restaurant/' ~ restaurant.img) }}" width="100px" height="100px"  alt="{{ restaurant.nom }}">
+                <h4>{{ restaurant.nom }}</h4>
+                <p class="ingredients">
+                 {{ restaurant.adresse }}
+                </p>
+                <p class="price">
+                    {{ restaurant.type }}
+                </p>
+                      <a class="btn-book-a-table" href="{{ path('reservation_add', {'id': restaurant.id}) }}">Book a Table</a>
+
+              </div><!-- Menu Item -->
+          {% endfor %}
+
+            </div>
+          </div><!-- End Breakfast Menu Content -->
+
+        </div>
+
+      </div>
+    </section><!-- End Menu Section -->
+
+{% endblock %}

@@ -1,0 +1,73 @@
+    {% extends 'front/base.html.twig' %}
+    
+{% block title %}Book a table{% endblock %}
+
+
+    {% block body %}
+
+     <section id="book-a-table" class="book-a-table">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Book A Table</h2>
+          <p>Book <span>Your Stay</span> With Us</p>
+        </div>
+
+        <div class="row g-0">
+          <div class="col-lg-4 reservation-img" style="background-image: url({{ asset('restaurant/' ~ restaurant.img) }});" data-aos="zoom-out" data-aos-delay="200"></div>
+
+          <div class="col-lg-8 d-flex align-items-center reservation-form-bg">
+          <div>
+          
+
+                         {{ form_start(formR) }}
+
+        {{ form_errors(formR) }}
+
+              <div style="padding-left: 26px" class="row gy-4">
+                <div class="col-lg-4 col-md-6">
+                  {{ form_row(formR.nom, {'attr': {'placeholder': 'Nom', 'class': 'form-control'}}) }}
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  {{ form_row(formR.email, {'attr': {'placeholder': 'email', 'class': 'form-control'}}) }}
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  {{ form_row(formR.telephone, {'attr': {'placeholder': 'telephone', 'class': 'form-control'}}) }}
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  {{ form_row(formR.dateReservation, {'attr': {'placeholder': 'dateReservation', 'class': 'form-control'}}) }}
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  {{ form_row(formR.heureReservation, {'attr': {'placeholder': 'heureReservation', 'class': 'form-control'}}) }}
+                  <div class="validate"></div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                 {{ form_row(formR.nombrePersonnes, {'attr': {'placeholder': 'nombrePersonnes', 'class': 'form-control'}}) }}
+                  <div class="validate"></div>
+                </div>
+              </div>
+                 <!-- Messages Flash -->
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+           
+              <div class="text-center"><button type="submit">Book a Table</button></div>
+               {{ form_end(formR) }}
+               </div>
+               
+          
+          </div><!-- End Reservation Form -->
+
+        </div>
+
+      </div>
+    </section><!-- End Book A Table Section -->
+
+
+{% endblock %}
