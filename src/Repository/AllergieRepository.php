@@ -52,6 +52,15 @@ public function orderByNom()
         ->orderBy('s.nom', 'ASC')
         ->getQuery()->getResult();
 }
+public function findAllWithInformationCount(): array
+{
+    return $this->createQueryBuilder('a')
+        ->leftJoin('a.informations', 'i') // i est un alias pour InformationEducatif
+        ->select('a.nom AS allergie_nom, COUNT(i.idinformation) AS information_count')
+        ->groupBy('a.id')
+        ->getQuery()
+        ->getResult();
+}
 
 
 }

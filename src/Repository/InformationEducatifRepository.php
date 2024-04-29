@@ -64,5 +64,13 @@ public function orderByContenu()
         ->orderBy('i.Contenu', 'ASC')
         ->getQuery()->getResult();
 }
-
+public function countInformationByAllergie(): array
+{
+    return $this->createQueryBuilder('i')
+        ->select('a.nom AS nom', 'COUNT(i) AS info_count')
+        ->join('i.idAllergie', 'a')
+        ->groupBy('a.nom')
+        ->getQuery()
+        ->getResult();
+}
 }

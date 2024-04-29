@@ -11,9 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use App\Entity\User; 
-
-
+use App\Entity\User;
+use App\Repository\InformationEducatifRepository;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 /**
  * @Route("/allergie")
@@ -116,7 +117,4 @@ class AllergieController extends AbstractController
         // Vous pouvez retourner une réponse appropriée si nécessaire
         return $this->redirectToRoute('back/base.html.twig'); // Redirigez vers une autre page après la sélection, par exemple la page d'accueil
     }
-
-
-
 }

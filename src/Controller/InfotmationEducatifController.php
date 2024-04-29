@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\InformationEducatif;
 use App\Form\InformationType;
+use App\Repository\AllergieRepository;
 use App\Repository\InformationEducatifRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,6 +12,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 /**
  * @Route("/information")
@@ -84,7 +87,7 @@ class InfotmationEducatifController extends AbstractController
     }
     
 
-       /**
+    /**
      * @Route("/show", name="information_show")
      */
     public function show(InformationEducatifRepository $informationRepository):Response
@@ -155,15 +158,16 @@ class InfotmationEducatifController extends AbstractController
     
     
 
-           /**
-     * @Route("/{id}", name="restaurant_show")
-     */
-    public function afficherParId(InformationEducatif $info): Response
-    {
-        return $this->render('infotmation_educatif/detais.html.twig', [
-            'infotmation_educatif' => $info,
-        ]);
-    }
+    /**
+ * @Route("/information/{id}", name="information_showId")
+ */
+public function afficherParId(InformationEducatif $information): Response
+{
+    return $this->render('infotmation_educatif/details.html.twig', [
+        'information' => $information,
+    ]);
+}
+
      /**
      * @Route("/orderByTitre", name="orderByTitre" ,methods={"GET"})
      */
@@ -179,6 +183,25 @@ class InfotmationEducatifController extends AbstractController
 
         
 
+    }
+    #[Route('/statistics', name: 'information_statistics')]
+    public function statistics(InformationEducatifRepository $informationEducatifRepository): Response
+    {
+        // Récupérer toutes les allergies avec le nombre d'informations éducatives associées
+        $informationByAllergie = $informationEducatifRepository->countInformationByAllergie();
+
+        // Préparer les données pour le graphique
+        $labels = [];
+        $data = [];
+        foreach ($informationByAllergie as $row) {
+            $labels[] = $row['nom']; // Nom de l'allergie
+            $data[] = $row['info_count']; // Nombre d'informations éducatives
+        }
+
+        return $this->render('infotmation_educatif/statistics.html.twig', [
+            'labels' => json_encode($labels), // Convertir en JSON pour JavaScript
+            'data' => json_encode($data), // Convertir en JSON pour JavaScript
+        ]);
     }
 
 }
