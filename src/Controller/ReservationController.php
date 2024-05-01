@@ -6,6 +6,7 @@ use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
 use App\Repository\RestaurantRepository;
+use App\Services\MailerService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,8 +22,8 @@ class ReservationController extends AbstractController
 {
  
     #[Route('/new/{id}', name: 'reservation_add', methods: ['GET', 'POST'])]
-    public function new($id, Request $request, EntityManagerInterface $entityManager, RestaurantRepository $restaurantRepository, SessionInterface $session): Response
-    {
+    public function new($id, MailerService $mail, Request $request, EntityManagerInterface $entityManager, RestaurantRepository $restaurantRepository, SessionInterface $session): Response
+    { 
         $restaurant = $restaurantRepository->find($id);
 
         $reservation = new Reservation();
@@ -33,6 +34,8 @@ class ReservationController extends AbstractController
             $entityManager->persist($reservation);
             $entityManager->flush();
     
+            $mail->send($reservation->getEmail(), "Reservation confirmé", " Félicitation " . $reservation->getNom(). "<br/>" . "Date: " . $reservation->getDateReservation()->format('Y-m-d'));
+
             $this->addFlash('success', 'La réservation a été ajoutée avec succès.');
             return $this->redirectToRoute('reservation_show', ['id' => $reservation->getId()]);
         }

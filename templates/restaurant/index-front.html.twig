@@ -12,28 +12,27 @@
           <p>Check Our <span>Yummy Menu</span></p>
         </div>
         <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
-
-        
-          <div>
+            <div class="row gy-5">
            {% for restaurant in restaurants %}
 
-            <div class="row gy-5">
-
               <div class="col-lg-4 menu-item">
-               <img src="{{ asset('restaurant/' ~ restaurant.img) }}" width="100px" height="100px"  alt="{{ restaurant.nom }}">
-                <h4>{{ restaurant.nom }}</h4>
+               <img style="border-radius: 10px" src="{{ asset('restaurant/' ~ restaurant.img) }}" width="200px" height="200px"  alt="{{ restaurant.nom }}">
+                <h4 style="padding-top: 10px">{{ restaurant.nom }}</h4>
                 <p class="ingredients">
                  {{ restaurant.adresse }}
                 </p>
                 <p class="price">
                     {{ restaurant.type }}
                 </p>
-                      <a class="btn-book-a-table" href="{{ path('reservation_add', {'id': restaurant.id}) }}">Book a Table</a>
-
+                     <a href="{{ path('reservation_add', {'id': restaurant.id}) }}"> <button style="    border-radius: 10px;
+    background-color: gray;
+    color: whitesmoke;
+    border: 1px;" >Book a Table</button></a>
               </div><!-- Menu Item -->
-          {% endfor %}
+       
+   {% endfor %}
 
-            </div>
+            
           </div><!-- End Breakfast Menu Content -->
 
         </div>
