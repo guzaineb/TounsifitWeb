@@ -1,0 +1,42 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Change Password{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h1 class="card-title text-center mb-0">Change Password</h1>
+                    </div>
+                    <div class="card-body">
+                        {% if app.flashes('error') is not empty %}
+                            <div class="alert alert-danger" role="alert">
+                                {% for message in app.flashes('error') %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <form method="post" action="{{ path('change_password') }}">
+                            <div class="mb-3">
+                                <label for="old_password" class="form-label">Ancient Password</label>
+                                <input type="password" name="old_password" id="old_password" class="form-control" required value="" autocomplete="off">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="new_password" class="form-label">New Password</label>
+                                <input type="password" name="new_password" id="new_password" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirm_new_password" class="form-label">Confirm New Password</label>
+                                <input type="password" name="confirm_new_password" id="confirm_new_password" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

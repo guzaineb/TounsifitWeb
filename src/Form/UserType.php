@@ -10,6 +10,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
 
 class UserType extends AbstractType
 {
@@ -46,6 +48,9 @@ class UserType extends AbstractType
             ])
             ->add('nom')
             ->add('prenom')
+            ->add('_token', HiddenType::class, [
+                'mapped' => false, // This field is not mapped to any entity property
+            ]);
         ;
     }
 
