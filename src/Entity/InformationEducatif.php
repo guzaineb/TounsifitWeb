@@ -54,8 +54,13 @@ class InformationEducatif
     #[ORM\JoinColumn(name: 'id_allergie')]
     #[Assert\NotBlank(message: "séléctionner une allergie ")]
 
- 
     private ?Allergie $idAllergie = null;
+    #[ORM\Column(type: "integer", options: ["default" => 0])]
+    private int $likes = 0;
+    
+    #[ORM\Column(type: "integer", options: ["default" => 0])]
+    private int $dislikes = 0;
+
 
     public function getIdinformation(): ?int
     {
@@ -133,7 +138,28 @@ class InformationEducatif
 
         return $this;
     }
-
+   
+    
+    // Ajoutez les getters et setters pour les nouveaux champs
+    public function getLikes(): int
+    {
+        return $this->likes;
+    }
+    
+    public function setLikes(int $likes): void
+    {
+        $this->likes = $likes;
+    }
+    
+    public function getDislikes(): int
+    {
+        return $this->dislikes;
+    }
+    
+    public function setDislikes(int $dislikes): void
+    {
+        $this->dislikes = $dislikes;
+    }
 
 
 }

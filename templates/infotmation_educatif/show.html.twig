@@ -33,7 +33,20 @@
                         <img class="rounded-circle" src="/img/information.png" alt="" style="width: 40px; height: 40px;">
                         Information Éducative
                     </a>
-                    <a href="form.html" class="nav-item nav-link">
+                 
+                        <a href="{{ path('RepeatedSymptome') }}" class="nav-item nav-link">
+                       <i class="bi bi-bar-chart"></i>
+                       Symptome statistic
+                    </a>
+                        <a href="{{ path('repeatedWords_statistic') }}" class="nav-item nav-link">
+                        <i class="bi bi-bar-chart"></i>Causes  Statistics
+                    </a>
+                    </a>
+                        <a href="{{ path('information_statistics') }}" class="nav-item nav-link">
+                        <i class="bi bi-bar-chart"></i>InformaAllergie
+                    </a>
+  
+                  <a href="form.html" class="nav-item nav-link">
                         <img class="rounded-circle" src="/img/produit-bio.png" alt="" style="width: 40px; height: 40px;">
                         Produit
                     </a>
@@ -45,6 +58,13 @@
 
     <!-- Content -->
     <div class="content">
+    {% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
         <!-- Navbar -->
         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
             <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -71,12 +91,13 @@
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <i class="fa fa-bell me-lg-2"></i>
-                        <span class="d-none d-lg-inline-flex">Notification</span>
-                    </a>
-                    <!-- Add notification items here -->
-                </div>
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+        <i class="fa fa-bell me-lg-2"></i>
+        <span class="d-none d-lg-inline-flex">Notification</span>
+    </a>
+   
+
+</div>
             </div>
         </nav>
         <!-- Navbar End -->
@@ -98,6 +119,8 @@
                                     <th scope="col">Traitement</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Allergie</th>
+                                    <th scope="col">likes</th>
+                                    <th scope="col">Dislikes</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -111,6 +134,8 @@
                                     <td>{{ information.traitement }}</td>
                                     <td>{{ information.image }}</td>
                                     <td>{{ information.idAllergie }}</td>
+                                    <td>{{ information.likes }}</td>
+                                    <td>{{ information.dislikes }}</td>
                                     <td>
                                         <a href="{{ path('information_update', {'id': information.idinformation}) }}" class="btn btn-warning">
                                             <i class="bi bi-pencil-square"></i>
@@ -118,6 +143,14 @@
                                         <a href="{{ path('information_delete', {'id': information.idinformation}) }}" class="btn btn-danger">
                                             <i class="bi bi-trash"></i>
                                         </a>
+                                         <a href="{{ path('information_pdf', {'id': information.idinformation}) }}" class="btn btn-dark ">
+                                         <i class="bi bi-download"></i>
+                                        </a>
+                                         </a>
+                                         <a href="{{ path('send_information_email', {'id': information.idinformation}) }}" class="btn btn-dark">
+    <i class="bi bi-download"></i>
+</a>
+
                                     </td>
                                 </tr>
                                 {% endfor %}

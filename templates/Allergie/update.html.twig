@@ -2,20 +2,25 @@
 
 {% block body %}
 <div class="sidebar pe-4 pb-3">
-						<nav class="navbar bg-light navbar-light">
-							<a href="index.html" class="navbar-brand mx-4 mb-3">
-								<h3 class="text-primary"><img class="rounded-circle" src="/img/logo.png" alt="" style="width: 180px; height: 180px;"></img></h3>
-						</a>
-						
-							</div>
-						</nav>
-					</div>
+    <nav class="navbar bg-light navbar-light">
+        <a href="index.html" class="navbar-brand mx-4 mb-3">
+            <h3 class="text-primary"><img class="rounded-circle" src="/img/logo.png" alt="" style="width: 180px; height: 180px;"></img></h3>
+        </a>
+    </nav>
+</div>
 <div id="main">
     <!-- Post -->
     <section class="post">
-     <header class="major text-center mb-4">
+        <header class="major text-center mb-4">
             <h1 style="color: orange;">Modifier allergie</h1>
         </header>
+
+        {# Affichage du message de succès #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
 
         <div class="row justify-content-center">
             <div class="col-md-6 border rounded p-4 shadow-lg">
@@ -27,15 +32,23 @@
                     {{ form_row(formA.description, {'attr': {'class': 'form-control', 'placeholder': 'Description de l\'allergie', 'style': 'height: 150px;'}}) }}
                 </div>
                 <div class="form-group text-center">
-                  
                     <button type="submit" class="btn btn-success btn-lg px-5 rounded-pill" style="background-color: orange; border: none;">Modifier</button>
-               <a href="{{ path('allergie_show') }}" class="btn btn-secondary rounded-pill">Retourner</a>
-                  
+                    <a href="{{ path('allergie_show') }}" class="btn btn-secondary rounded-pill">Retourner</a>
                 </div>
                 {{ form_end(formA) }}
             </div>
         </div>
-
     </section>
 </div>
+
+{# Intégration du code JavaScript pour Notyf #}
+<script>
+    // Exemple d'utilisation lors de l'ajout d'une allergie
+    // Après le succès de l'ajout
+    notyf.success('Allergie ajoutée avec succès !');
+
+    // Exemple d'utilisation lors de la modification d'une allergie
+    // Après le succès de la modification
+    notyf.success('Allergie modifiée avec succès !');
+</script>
 {% endblock %}

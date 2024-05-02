@@ -41,3 +41,16 @@
     </section>
 </div>
 {% endblock %}
+{% block javascript %}
+<script>
+    // Récupérer les messages flash générés par Symfony
+    let flashMessages = document.querySelectorAll('.alert');
+
+    // Parcourir les messages flash et afficher les notifications Notyf
+    flashMessages.forEach(message => {
+        let messageText = message.textContent.trim();
+        notyf.success(messageText);
+    });
+</script>
+
+{% endblock %}

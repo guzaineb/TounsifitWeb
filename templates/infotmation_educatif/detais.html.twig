@@ -1,0 +1,33 @@
+
+
+{{ information.titre }}
+
+<button class="like-btn" data-id="{{ information.idinformation }}">Like</button>
+<span id="like-count">{{ information.likes }}</span>
+
+<button class="dislike-btn" data-id="{{ information.idinformation }}">Dislike</button>
+<span id="dislike-count">{{ information.dislikes }}</span>
+
+<script>
+    document.querySelectorAll('.like-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const id = button.getAttribute('data-id');
+            fetch(`/like/${id}`, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('#like-count').innerText = data.likes;
+                });
+        });
+    });
+
+    document.querySelectorAll('.dislike-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const id = button.getAttribute('data-id');
+            fetch(`/dislike/${id}`, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('#dislike-count').innerText = data.dislikes;
+                });
+        });
+    });
+</script>

@@ -27,17 +27,17 @@ class Allergie
      #[Assert\NotBlank(message: "Le nom ne peut pas être vide")]
      #[Assert\Length(
          min: 6,
-         minMessage: "Le nom doit contenir au moins {{ min }} caractères",
+         minMessage: "Le nom doit contenir au moins 6 caractères",
          max: 255,
-         maxMessage: "Le nom ne peut pas dépasser {{ max }} caractères"
+         maxMessage: "Le nom ne peut pas dépasser 255 caractères"
      )]
     private ? string $nom ;
 
    
     #[ORM\Column(length:255)]
     #[Assert\NotBlank(message: "La description ne peut pas être vide")]
-    #[Assert\Length(min: 10,  minMessage: "Le nom doit contenir au moins {{ limit }} caractères",
-        max: 255, maxMessage: "La description ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\Length(min: 10,  minMessage: "Le nom doit contenir au moins 6 caractères",
+        max: 255, maxMessage: "La description ne peut pas dépasser 255 caractères")]
        private ? string $description;
 
        #[ORM\ManyToMany(targetEntity: "User", mappedBy: "allergies")]
@@ -110,4 +110,7 @@ private ?Collection $user;
     {
         return $this->nom ?? ''; // You can change this to whatever property you want to use for the string representation
     }
+
+    
+
 }

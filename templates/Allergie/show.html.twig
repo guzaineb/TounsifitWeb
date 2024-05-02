@@ -1,9 +1,14 @@
-{#show.html.twig#}
-{% extends 'back/base.html.twig' %}
-{% block title %}{% endblock %}
-	
-{% block content %}
 
+{% extends 'back/base.html.twig' %}
+   
+
+{% block body %}
+ {# Affichage du message de succès #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
 
 	<div
 		class="container-xxl position-relative bg-white d-flex p-0">
@@ -54,27 +59,43 @@
 		<a href="#" class="sidebar-toggler flex-shrink-0">
 			<i class="fa fa-bars"></i>
 		</a>
-		<form class="d-none d-md-flex ms-4">
-			<input class="form-control border-0" type="search" placeholder="Search">
-		</form>
+<form id="searchForm" class="d-none d-md-flex ms-4">
+    <input id="searchInput" class="form-control border-0" type="search" placeholder="Search">
+</form>
+
+
+<script>
+    $(document).ready(function() {
+        $('#searchInput').on('input', function() {
+            var query = $(this).val();
+            $.ajax({
+                url: '{{ path('search_allergies') }}',
+                method: 'POST',
+                data: { query: query },
+                beforeSend: function() {
+                    $('#spinner').addClass('show');
+                },
+                success: function(response) {
+                    $('#spinner').removeClass('show');
+                    $('.table tbody').empty(); // Clear existing rows
+                    $('.table tbody').append(response); // Append new rows
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
 		<div class="navbar-nav align-items-center ms-auto">
 			<div class="nav-item dropdown">
-				<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-					<i class="fa fa-envelope me-lg-2"></i>
-					<span class="d-none d-lg-inline-flex">Message</span>
-				</a>
-				<div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-					<hr class="dropdown-divider">
-
-					<hr class="dropdown-divider">
-
-				</div>
-			</div>
-			<div class="nav-item dropdown">
-				<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-					<i class="fa fa-bell me-lg-2"></i>
-					<span class="d-none d-lg-inline-flex">Notificatin</span>
-				</a>
+				
+				 <div class="nav-item dropdown">
+                        <a href="#" class="nav-link ">
+                            <img class="rounded-circle me-lg-2" src=" /img/téléchargement.jpg" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">Guesmi Zaineb</span>
+                        </a>
 
 
 			</div>
@@ -115,6 +136,9 @@
                                         <a href="{{ path('Allergie_delete', {'id': allergie.id}) }}" class="btn btn-sm btn-sm-square btn-danger m-2">
                                             <i class="bi bi-trash"></i>
                                         </a>
+										 <a href="{{ path('allergie_pdf', {'id': allergie.id}) }}" class="btn btn-sm btn-sm-square btn btn-dark ">
+                                         <i class="bi bi-download"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -151,14 +175,3 @@
 	<!-- Footer End -->
 
 {% endblock %}
-{% block javascript %}
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js">
-</script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js">
-</script><script src="lib/chart/chart.min.js"></script><script src="lib/easing/easing.min.js">
-</script><script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/tempusdominus/js/moment.min.js"></script>
-<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script><!-- Template Javascript --><script src="js/main.js">
-</script>{% endblock %}

@@ -73,4 +73,66 @@ public function countInformationByAllergie(): array
         ->getQuery()
         ->getResult();
 }
+
+public function countRepeatedSymptome(): array
+{
+    // Récupérer toutes les informations éducatives
+    $informations = $this->findAll();
+
+    // Initialiser un tableau pour stocker les mots répétés
+    $repeatedSymptome = [];
+
+    // Concatenate all text from educational information
+    $allText = '';
+    foreach ($informations as $information) {
+        $allText .= $information->getSymptome() . ' '; // Add a space for word separation
+    }
+    dump($allText);
+
+    // Séparer le texte en mots
+    $words = str_word_count($allText, 1);
+
+    // Compter le nombre de chaque mot
+    $wordCounts = array_count_values($words);
+
+    // Filtrer les mots qui se répètent
+    foreach ($wordCounts as $word => $count) {
+        if ($count > 1) {
+            $repeatedSymptome[$word] = $count;
+        }
+    }
+    dump($repeatedSymptome);
+    return $repeatedSymptome;
+}
+
+public function countRepeatedWords(): array
+{
+    // Récupérer toutes les informations éducatives
+    $informations = $this->findAll();
+
+    // Initialiser un tableau pour stocker les mots répétés
+    $repeatedWords = [];
+
+    // Concatenate all text from educational information
+    $allText = '';
+    foreach ($informations as $information) {
+        $allText .= $information->getCauses() . ' '; // Add a space for word separation
+    }
+    dump($allText);
+
+    // Séparer le texte en mots
+    $words = str_word_count($allText, 1);
+
+    // Compter le nombre de chaque mot
+    $wordCounts = array_count_values($words);
+
+    // Filtrer les mots qui se répètent
+    foreach ($wordCounts as $word => $count) {
+        if ($count > 1) {
+            $repeatedWords[$word] = $count;
+        }
+    }
+
+    return $repeatedWords;
+}
 }

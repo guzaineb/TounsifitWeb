@@ -61,6 +61,41 @@ public function findAllWithInformationCount(): array
         ->getQuery()
         ->getResult();
 }
+public function findBySearchQuery($query, $filter)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder->select('a')
+                     ->from(Allergie::class, 'a')
+                     ->where('a.nom LIKE :query')
+                     ->setParameter('query', '%'.$query.'%');
+
+        if ($filter === 'option1') {
+            // Ajoutez des conditions supplémentaires en fonction du filtre
+            $queryBuilder->andWhere('a.someProperty = :value')
+                         ->setParameter('value', 'someValue');
+        } elseif ($filter === 'option2') {
+            // Ajoutez d'autres conditions en fonction du filtre option2
+        }
+
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+    public function checkIfUsedInOtherTable($id)
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->select('COUNT(i)')
+            ->leftJoin('App\Entity\InformationEducatif', 'i', 'WITH', 'i.idAllergie = a.id')
+            ->andWhere('a.id = :idAllergie')
+            ->setParameter('idAllergie', $id);
+        
+        $query = $qb->getQuery();
+        $result = $query->getSingleScalarResult();
+    
+        return $result > 0;
+    }
+    
 
 
 }
