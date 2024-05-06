@@ -105,51 +105,50 @@
 
 
     <div class="container-xxl position-relative bg-white d-flex p-0">
-        <!-- Votre contenu -->
-    </div>
+    <!-- Votre contenu -->
+</div>
 
-    <h1>Liste des Allergie</h1>
+<h1>Liste des Allergies</h1>
 
-    <div class="col-sm-12 col-xl-15">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
-                        <thead class="thead-dark">
+<div class="col-sm-12 col-xl-15">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for allergie in allergies %}
                             <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Actions</th>
+                                <td>{{ allergie.id }}</td>
+                                <td>{{ allergie.nom }}</td>
+                                <td>{{ allergie.description }}</td>
+                                <td>
+                                    <a href="{{ path('allergie_update', {'id': allergie.id}) }}" class="btn btn-warning m-2">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="{{ path('Allergie_delete', {'id': allergie.id}) }}" class="btn btn-danger m-2">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                    <a href="{{ path('allergie_pdf', {'id': allergie.id}) }}" class="btn btn-dark ">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {% for allergie in allergies %}
-                                <tr>
-                                    <td>{{ allergie.id }}</td>
-                                    <td>{{ allergie.nom }}</td>
-                                    <td>{{ allergie.description }}</td>
-                                    <td>
-                                        <a href="{{ path('allergie_update', {'id': allergie.id}) }}" class="btn btn-square btn-warning m-2">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a href="{{ path('Allergie_delete', {'id': allergie.id}) }}" class="btn btn-sm btn-sm-square btn-danger m-2">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
-										 <a href="{{ path('allergie_pdf', {'id': allergie.id}) }}" class="btn btn-sm btn-sm-square btn btn-dark ">
-                                         <i class="bi bi-download"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <a href="{{ path('Add_Allergie') }}" class="btn btn-primary mt-3">Add</a>
-
+</div>
+<a href="{{ path('Add_Allergie') }}" class="btn btn-primary mt-3">Add</a>
 
 
 		<!-- Footer Start -->

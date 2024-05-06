@@ -200,14 +200,14 @@ public function like(Request $request, InformationEducatif $information): JsonRe
 /**
  * @Route("/dislike/{id}", name="dislike_information", methods={"POST"})
  */
-public function dislike(Request $request, InformationEducatif $information): JsonResponse
+public function dislike(Request $request, InformationEducatif $information ,ManagerRegistry $doctrine ): JsonResponse
 {
     $dislikes = $information->getDislikes() + 1;
     $information->setDislikes($dislikes);
 
-    $entityManager = $this->getDoctrine()->getManager();
-    $entityManager->persist($information);
-    $entityManager->flush();
+    $em= $this->$doctrine->getManager();
+    $em->persist($information);
+    $em->flush();
 
     return new JsonResponse(['totalDislikes' => $dislikes]);
 }

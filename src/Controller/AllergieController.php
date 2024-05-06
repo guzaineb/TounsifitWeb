@@ -32,7 +32,7 @@ class AllergieController extends AbstractController
     }
 
      
-      #[Route('/Add', name:"Add_Allergie")]
+    #[Route('/Add', name:"Add_Allergie")]
      
 
         public function AddAllergie(ManagerRegistry $doctrine , Request $request,EntityManagerInterface $entityManager): Response
@@ -44,8 +44,6 @@ class AllergieController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager->persist($allergie);
                 $entityManager->flush();
-    
-                
                
                 $this->addFlash('success', 'Allergie ajouter avec succès.');
     
@@ -59,15 +57,14 @@ class AllergieController extends AbstractController
             ]);
         }
         
-
-      /**
-     * @Route("/Delete/{id}", name="Allergie_delete")
-     */
-    public function DeleteAllergie($id, AllergieRepository $allergieRepository, ): Response{
+        #[Route('/Delete/{id}', name:"Allergie_delete")]
+   
+    public function DeleteAllergie($id, AllergieRepository $allergieRepository,ManagerRegistry $doctrine ): Response{
         
         {
-            $entityManager = $this->getDoctrine()->getManager();
-            $allergie = $entityManager->getRepository(Allergie::class)->find($id);
+            $em = $doctrine->getManager();
+       
+            $allergie =  $em ->getRepository(Allergie::class)->find($id);
     
             if (!$allergie) {
                 throw $this->createNotFoundException('Aucune allergie trouvée pour cet id: '.$id);
@@ -83,28 +80,22 @@ class AllergieController extends AbstractController
             }
     
             // Si l'allergie n'est pas utilisée dans une autre table, supprimer l'allergie
-            $entityManager->remove($allergie);
-            $entityManager->flush();
+            $em ->remove($allergie);
+            $em ->flush();
     
             $this->addFlash('success', 'Allergie supprimée avec succès.');
     
             return $this->redirectToRoute('allergie_show');
         }
     
-    }
+    }  #[Route('/show', name:"allergie_show")]
      
-       /**
-     * @Route("/show", name="allergie_show")
-     */
     public function show(AllergieRepository $allergieRepository):Response
     {
         $allergies = $allergieRepository->findAll();
         return $this->render('allergie/show.html.twig', ['allergies' => $allergies]);
     }
-    
-      /**
-     * @Route("/affiche", name="allergie_affiche")
-     */
+    #[Route('/affiche', name:"allergie_affiche")]
     public function affiche(AllergieRepository $allergieRepository):Response
     {
         $Allergies = $allergieRepository->findAll();
@@ -112,12 +103,8 @@ class AllergieController extends AbstractController
 
         
     }
+    #[Route('/update/{id}', name:"allergie_update")]
     
-    
-       /**
-     * @Route("/update/{id}", name="allergie_update")
-     */  
-
         public function updateAllergie(ManagerRegistry $doctrine, Request $request, AllergieRepository $rep, $id): Response
         {
             $allergie = $rep->find($id);
@@ -152,9 +139,7 @@ class AllergieController extends AbstractController
         // Vous pouvez retourner une réponse appropriée si nécessaire
         return $this->redirectToRoute('back/base.html.twig'); // Redirigez vers une autre page après la sélection, par exemple la page d'accueil
     }
- /**
-     * @Route("/search_allergies", name="search_allergies", methods={"POST"})
-     */
+    #[Route('/search_allergies', name:"search_allergies")]
     public function searchAllergies(Request $request,AllergieRepository $allergieRepository): Response
     {
         $query = $request->request->get('query');
@@ -166,9 +151,8 @@ class AllergieController extends AbstractController
             'allergies' => $allergies,
         ]);
     }
-  /**
-     * @Route("/allergie/pdf/{id}", name="allergie_pdf", methods={"GET"})
-     */
+  #[Route('/allergie/pdf/{id}', name:"allergie_pdf")]
+     
     public function generatePdf(Allergie $allergie): Response
     {
         // Créez une nouvelle instance de Dompdf avec des options
@@ -176,25 +160,19 @@ class AllergieController extends AbstractController
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
         $dompdf = new Dompdf($options);
-
         // Construisez le contenu HTML du PDF en utilisant une vue Twig
         $html = $this->renderView('allergie/pdf.html.twig', [
-            'allergie' => $allergie,
-        ]);
-
+            'allergie' => $allergie,]);
         // Chargez le contenu HTML dans Dompdf
         $dompdf->loadHtml($html);
-
         // Rendez le PDF
         $dompdf->render();
-
         // Renvoyez une réponse avec le contenu du PDF
         return new Response(
             $dompdf->output(),
             Response::HTTP_OK,
             array(
-                'Content-Type' => 'application/pdf',
-            )
+                'Content-Type' => 'application/pdf',)
         );
     }
 
