@@ -1,0 +1,17 @@
+{# templates/user/ban_confirmation.html.twig #}
+
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Ban Confirmation{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Ban Confirmation</h1>
+        <p>Are you sure you want to ban this user?</p>
+        <form action="{{ path('app_user_ban', {'id': user.id}) }}" method="post">
+            <input type="hidden" name="_token" value="{{ csrf_token('ban' ~ user.id) }}" />
+            <button type="submit" class="btn btn-danger">Confirm Ban</button>
+            <a href="{{ path('app_user_index') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+{% endblock %}

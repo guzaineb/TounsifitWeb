@@ -1,0 +1,35 @@
+{% extends 'back/base.html.twig' %}
+{% block body %}
+ <div id="main">
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                 <h1>Modifier allergie</h1>
+            </header>
+
+
+           <div class="col-md-12">
+           {{form_start(formA)}}
+                    <fieldset>
+                        {{ form_row(formA.nom) }}
+                    </fieldset>
+                </div>
+
+                <div class="col-md-12">
+                    <fieldset>
+                        {{ form_row(formA.description) }}
+                    </fieldset>
+                </div>
+         <div class="col-md-12">
+                    <fieldset>
+                        <button type= "submit" class="btn btn-success"> Modifier  ! </button>
+                    </fieldset>
+                </div>
+
+                {{ form_end(formA) }}
+
+            </div>
+
+  </section>
+</div>          
+{% endblock %}

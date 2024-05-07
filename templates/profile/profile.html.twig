@@ -1,0 +1,31 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}User Profile{% endblock %}
+{% block navside  %}
+{% endblock %}
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h1 class="card-title text-center mb-0">Welcome to your profile, {{ user.nom }} {{ user.prenom }}!</h1>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-3">Nom:</dt>
+                            <dd class="col-sm-9">{{ user.nom }}</dd>
+
+                            <dt class="col-sm-3">Prénom:</dt>
+                            <dd class="col-sm-9">{{ user.prenom }}</dd>
+
+                            <dt class="col-sm-3">Email:</dt>
+                            <dd class="col-sm-9">{{ user.email }}</dd>
+                        </dl>
+                        <a href="{{ path('change_password', {'id': user.id}) }}" class="btn btn-warning">Change Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

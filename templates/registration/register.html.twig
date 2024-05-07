@@ -1,0 +1,32 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Register!{% endblock %}
+
+{% block navside %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Register</h1>
+                        <form method="post" action="{{ path('app_register') }}" class="needs-validation" novalidate>
+                            {{ form_start(registrationForm) }}
+                            {{ form_row(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_row(registrationForm.prenom, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_row(registrationForm.agreeTerms) }}
+                            {{ form_row(registrationForm._token) }}
+
+                            <button class="btn btn-lg btn-warning btn-block" type="submit">Register</button>
+                            {{ form_end(registrationForm) }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
