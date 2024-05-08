@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,12 +23,9 @@ class Restaurant
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private $nom;
+
+    #[ORM\Column(length: 255)]
+    private  $nom;
 
     /**
      * @var string
@@ -49,6 +47,11 @@ class Restaurant
      * @ORM\Column(name="type", type="string", length=255, nullable=false)
      */
     private $type;
+
+  
+
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'restaurant')]
+    private Collection $reservations;
 
     public function getId(): ?int
     {

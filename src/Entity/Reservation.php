@@ -67,7 +67,11 @@ class Reservation
      */
     private $nombrePersonnes;
 
-   
+
+    #[ORM\ManyToOne(targetEntity: Restaurant::class, inversedBy: 'reservations')]
+    private $restaurant;
+
+
 
     public function getId(): ?int
     {
