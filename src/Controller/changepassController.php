@@ -40,7 +40,7 @@ class changepassController extends AbstractController
 
             $this->addFlash('success', 'Password changed successfully.');
 
-            return $this->redirectToRoute('user_profile');
+            return $this->redirectToRoute('app_front');
         }
 
         return $this->render('profile/changepass.html.twig');

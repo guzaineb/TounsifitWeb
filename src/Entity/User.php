@@ -8,7 +8,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -58,7 +59,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?bool $isbanned = null;
+    #[ORM\ManyToMany(targetEntity: "Allergie", inversedBy: "users")]
+    #[ORM\JoinTable(name: "user_allergie")]
+   private $allergie = array();
 
+   /**
+    * Constructor
+    */
+   public function __construct()
+   {
+       $this->allergie = new ArrayCollection();
+   }
     public function getId(): ?int
     {
         return $this->id;
@@ -195,4 +206,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+    /**
+     * @return Collection<int, Allergie>
+     */
+    public function getAllergie(): Collection
+    {
+        return $this->allergie;
+    }
+
+    public function addAllergie(Allergie $allergie): static
+    {
+        if (!$this->allergie->contains($allergie)) {
+            $this->allergie->add($allergie);
+        }
+
+        return $this;
+    }
+
+    public function removeAllergie(Allergie $allergie): static
+    {
+        $this->allergie->removeElement($allergie);
+
+        return $this;
+    }
+
 }

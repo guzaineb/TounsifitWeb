@@ -1,0 +1,55 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Liste des Restaurants{% endblock %}
+{% block navside  %}
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<section id="menu" class="menu">
+  <div class="container" data-aos="fade-up">
+
+   
+    <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
+        <div class="row gy-5">
+       {% for restaurant in restaurants %}
+
+          <div class="col-lg-4 menu-item">
+            <img style="border-radius: 10px" src="{{ asset('restaurant/' ~ restaurant.img) }}" width="200px" height="200px"  alt="{{ restaurant.nom }}">
+            <h4 style="padding-top: 10px">{{ restaurant.nom }}</h4>
+            <p class="ingredients">
+             {{ restaurant.adresse }}
+            </p>
+            <p class="price">
+                {{ restaurant.type }}
+            </p>
+            <div class="like-dislike">
+                <a href="#" class="like-button" onclick="likeRestaurant('{{ restaurant.nom }}')"><i class="bi bi-hand-thumbs-up"></i></a>
+                <a href="#" class="dislike-button" onclick="dislikeRestaurant('{{ restaurant.nom }}')"><i class="bi bi-hand-thumbs-down"></i></a>
+            </div>
+            <a href="{{ path('reservation_add', {'id': restaurant.id}) }}"><button style="border-radius: 10px;background-color: gray;color: whitesmoke;border: 1px;">Réserver</button></a>
+          </div><!-- Menu Item -->
+
+       {% endfor %}
+        
+      </div><!-- End Breakfast Menu Content -->
+
+    </div>
+
+  </div>
+</section><!-- End Menu Section -->
+
+<script>
+    function likeRestaurant(restaurantName) {
+        alert("Liked Restaurant: " + restaurantName);
+    }
+
+    function dislikeRestaurant(restaurantName) {
+        alert("You don't like Restaurant: " + restaurantName);
+    }
+</script>
+
+{% endblock %}
+{% endblock %}

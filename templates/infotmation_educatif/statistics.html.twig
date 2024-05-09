@@ -1,0 +1,33 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Statistics{% endblock %}
+
+{% block body %}
+    <h1>Statistics</h1>
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var labels = {{ labels|raw }};
+        var data = {{ data|raw }};
+        
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Nombre d\'informations éducatives par allergie',
+                    data: data,
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // Couleurs pour chaque tranche
+                }]
+            }
+        });
+    </script>
+
+    <!-- Affichage des mots répétés -->
+   
+
+    <!-- Fin de l'affichage des mots répétés -->
+
+    
+{% endblock %}

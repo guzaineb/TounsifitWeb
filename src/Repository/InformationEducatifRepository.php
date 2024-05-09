@@ -45,4 +45,35 @@ class InformationEducatifRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function orderByTitre()
+{
+    return $this->createQueryBuilder('i')
+        ->orderBy('i.titre', 'ASC')
+        ->getQuery()->getResult();
+}
+public function orderByAuteur()
+{
+    return $this->createQueryBuilder('i')
+        ->orderBy('i.auteur', 'ASC')
+        ->getQuery()->getResult();
+}
+public function orderByContenu()
+{
+    return $this->createQueryBuilder('i')
+        ->orderBy('i.Contenu', 'ASC')
+        ->getQuery()->getResult();
+}
+public function countInformationByAllergie(): array
+{
+    return $this->createQueryBuilder('i')
+        ->select('a.nom AS nom', 'COUNT(i) AS info_count')
+        ->join('i.idAllergie', 'a')
+        ->groupBy('a.nom')
+        ->getQuery()
+        ->getResult();
+}
+        
+
+
 }

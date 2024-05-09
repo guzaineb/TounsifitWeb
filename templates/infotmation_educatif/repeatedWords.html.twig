@@ -1,0 +1,65 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Statistics{% endblock %}
+
+{% block body %}
+
+                    <div class="col-sm-12 col-xl-6">
+    <h1>Repeated Words Chart</h1>
+    <canvas id="repeatedWordsChart" width="800" height="400"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('repeatedWordsChart').getContext('2d');
+
+        var labels = {{ repeatedWords|keys|json_encode|raw }};
+        var counts = {{ repeatedWords|json_encode|raw }}; // Directly encode the array
+
+        var repeatedWordsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Repeated Words Count',
+                    data: counts,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)', // Light blue background color
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)' // Light gray grid lines
+                        },
+                        ticks: {
+                            stepSize: 1 // Ensure integer tick increments
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false // Hide x-axis grid lines
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Hide legend
+                    },
+                    title: {
+                        display: true,
+                        text: 'Repeated Words Count', // Chart title
+                        font: {
+                            size: 18
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    </div>
+
+   
+{% endblock %}

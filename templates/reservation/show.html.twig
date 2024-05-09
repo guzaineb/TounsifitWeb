@@ -1,0 +1,35 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Détails de la réservation{% endblock %}
+
+{% block body %}
+<div class="container" style="padding-top: 25px;">
+    <h2>Détails de la réservation</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Nom :</dt>
+        <dd class="col-sm-9">{{ reservation.nom }}</dd>
+
+        <dt class="col-sm-3">Email :</dt>
+        <dd class="col-sm-9">{{ reservation.email }}</dd>
+
+        <dt class="col-sm-3">Téléphone :</dt>
+        <dd class="col-sm-9">{{ reservation.telephone }}</dd>
+
+        <dt class="col-sm-3">Date de réservation :</dt>
+        <dd class="col-sm-9">{{ reservation.dateReservation|date('d/m/Y') }}</dd>
+
+        <dt class="col-sm-3">Heure de réservation :</dt>
+        <dd class="col-sm-9">{{ reservation.heureReservation|date('H:i') }}</dd>
+
+        <dt class="col-sm-3">Nombre de personnes :</dt>
+        <dd class="col-sm-9">{{ reservation.nombrePersonnes }}</dd>
+    </dl>
+    
+    <form action="" method="POST">
+        <button type="submit" class="btn btn-primary">Payer</button>
+    </form>
+    
+   
+
+</div>
+{% endblock %}

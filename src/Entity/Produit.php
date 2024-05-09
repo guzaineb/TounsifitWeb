@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use App\Repository\ProduitRepository;
+use Symfony\Component\Validator\Constraints as Assert; 
+
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 
@@ -15,40 +17,40 @@ class Produit
     #[ORM\Column]
     private ?int $idProduit;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private $nom;
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide")]
+    #[Assert\Length(
+        min: 6,
+        minMessage: "Le nom doit contenir au moins {{ limit }} caractères",
+        max: 255,
+        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères"
+    )]
+    private ?string $nom= null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255, nullable=false)
-     */
-    private $description;
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "La description ne peut pas être vide")]
+    #[Assert\Length(
+        min: 6,
+        minMessage: "La description doit contenir au moins {{ limit }} caractères",
+        max: 255,
+        maxMessage: "La description ne peut pas dépasser {{ limit }} caractères"
+    )]
+    private ?string $description= null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="prix", type="integer", nullable=false)
-     */
-    private $prix;
+    #[ORM\Column]
+    #[Assert\NotBlank(message: "Le prix ne peut pas être vide")]
+    #[Assert\PositiveOrZero(message: "Le prix doit être un nombre positif ou nul")]
+    private ?int $prix= null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="Quantity", type="integer", nullable=false)
-     */
-    private $quantity;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=false)
-     */
-    private $image;
+    #[ORM\Column]
+    #[Assert\NotBlank(message: "La quantité ne peut pas être vide")]
+    #[Assert\PositiveOrZero(message: "La quantité doit être un nombre positif ou nul")]
+    private ?int $quantity= null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image= null;
+
 
     public function getIdProduit(): ?int
     {
@@ -94,26 +96,4 @@ class Produit
     public function getQuantity(): ?int
     {
         return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): static
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-
-}
+    }}

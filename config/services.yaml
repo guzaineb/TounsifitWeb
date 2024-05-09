@@ -1,3 +1,6 @@
+parameters:
+    images_directorys: 'restaurant'
+    images_directory: '%kernel.project_dir%/public/uploads/images'
 services:
     # Default configuration for services in *this* file
     _defaults:

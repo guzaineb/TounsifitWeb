@@ -65,7 +65,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(EntityManagerInterface $entityManager, Security $security, UserRepository $userRepository): void
+    public function logout(EntityManagerInterface $entityManager, Security $security, UserRepository $userRepository):Response
     {
         // Get the current user
         $email = $security->getUser()->getUsername();
@@ -78,7 +78,9 @@ class SecurityController extends AbstractController
             // Persist and flush the changes
             $entityManager->persist($user);
             $entityManager->flush();
+
         }
+        return $this->redirectToRoute('app_front');
         // Do whatever other logout tasks you need to do
         // This method can still be blank if it's handled by the firewall
     }
